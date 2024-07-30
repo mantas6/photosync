@@ -1,0 +1,10 @@
+#!/bin/bash
+
+thumbsup --input "$1" --output "$2" \
+    --albums-from "{YYYY}" \
+    --albums-from "{YYYY}-{MM}" \
+    --albums-from "Days/{YYYY}-{MM}-{DD}" \
+    --sort-albums-direction desc \
+    --sort-media-direction desc \
+    --thumb-size 240 \
+    --embed-exif
