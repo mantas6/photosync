@@ -1,13 +1,22 @@
 #!/bin/bash
 
-thumbsup --input "$1" --output "$2" \
+input="$HOME/Pictures/Gallery/Originals"
+output="$HOME/Pictures/Gallery/Site"
+
+docker run -t \
+    -v /etc/localtime:/etc/localtime \
+    -v "$input:/mnt/input:ro" \
+    -v "$output:/mnt/output" \
+    ghcr.io/thumbsup/thumbsup \
+    thumbsup \
+    --input '/mnt/input' --output '/mnt/output' \
     --albums-from "{YYYY}" \
     --albums-from "{YYYY}-{MM}" \
     --albums-from "Days/{YYYY}-{MM}-{DD}" \
     --sort-albums-direction desc \
     --sort-media-direction desc \
     --thumb-size 240 \
-    --embed-exif
-
-
-# docker run -t -v './Gallery:/work' ghcr.io/thumbsup/thumbsup thumbsup --input '/work/Originals' --output '/work/Site' --albums-from "{YYYY}" --albums-from "{YYYY}-{MM}" --albums-from "Days/{YYYY}-{MM}-{DD}" --sort-albums-direction desc --sort-media-direction desc --thumb-size 240 --embed-exif
+    --large-size 1512 \
+    --embed-exif \
+    --photo-download link \
+    --link-prefix 'http://l4:5555/static/'
