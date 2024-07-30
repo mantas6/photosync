@@ -8,3 +8,6 @@ thumbsup --input "$1" --output "$2" \
     --sort-media-direction desc \
     --thumb-size 240 \
     --embed-exif
+
+
+# docker run -t -v './Gallery:/work' ghcr.io/thumbsup/thumbsup thumbsup --input '/work/Originals' --output '/work/Site' --albums-from "{YYYY}" --albums-from "{YYYY}-{MM}" --albums-from "Days/{YYYY}-{MM}-{DD}" --sort-albums-direction desc --sort-media-direction desc --thumb-size 240 --embed-exif
