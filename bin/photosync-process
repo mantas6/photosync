@@ -14,13 +14,20 @@ mount_point=$(udisksctl mount -b "$dev_name" -o 'ro' --no-user-interaction \
     | grep 'Mounted' \
     | awk '{print $4}')
 
+unmount() {
+    echo 'Preparing to unmount the drive'
+    cd
+    sleep 5
+    udisksctl unmount -b "$dev_name"
+}
+
+trap unmount SIGINT
+
 cd "$mount_point"
 
 # Check if marker file exist on the root of the drive
 if [ ! -f '.photosync' ]; then
-    echo "No photosync $dev_name"
-    cd
-    udisksctl unmount -b "$dev_name"
+    unmount
     exit 0
 fi
 
@@ -32,7 +39,4 @@ find . -iname '*.jpg' -exec photosync {} "$output_dir" \;
 photosync-notify "Finished processing" &
 echo "Finish processing drive"
 
-cd
-sleep 5
-udisksctl unmount -b "$dev_name"
-
+unmount
