@@ -5,8 +5,7 @@ After=network.target
 [Service]
 Environment="PUSHOVER_API_TOKEN=value1"
 Environment="PUSHOVER_USER_KEY=value2"
-ExecSearchPath="/home/mantas/Repos/photosync/bin"
-ExecStart=/home/mantas/Repos/photosync/bin/photosync-watch
+ExecStart=/home/mantas/Repos/photosync/bin/photosync-env
 Restart=on-failure
 RestartSec=60s
 

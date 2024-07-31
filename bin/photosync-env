@@ -1,0 +1,6 @@
+#!/bin/bash
+
+dir=$(dirname "$(realpath "$0")")
+export PATH="$dir:$PATH"
+
+photosync-watch
