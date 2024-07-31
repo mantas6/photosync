@@ -1,13 +1,16 @@
 #!/bin/bash
 
+dir=$(dirname "$(realpath "$0")")
+
 export PHOTOSYNC_ORIGINALS="$HOME/Pictures/Gallery/Originals"
 export PHOTOSYNC_SITE="$HOME/Pictures/Gallery/Site"
+export PATH="$dir:$PATH"
+
+# shellcheck source=/dev/null
+[ -f "$dir/../local.env" ] && . "$dir/../local.env"
 
 mkdir -pv "$PHOTOSYNC_ORIGINALS"
 mkdir -pv "$PHOTOSYNC_SITE"
-
-dir=$(dirname "$(realpath "$0")")
-export PATH="$dir:$PATH"
 
 photosync-serve &
 photosync-watch
