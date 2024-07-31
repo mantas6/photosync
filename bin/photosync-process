@@ -3,7 +3,7 @@
 # Set shell strict mode
 set -euo pipefail
 
-output_dir="$HOME/Pictures/Gallery/Originals"
+output_dir="$PHOTOSYNC_ORIGINALS"
 mkdir -pv "$output_dir"
 
 # Detected block device that is plugged in
@@ -40,3 +40,5 @@ photosync-notify "Finished processing" &
 echo "Finish processing drive"
 
 unmount
+
+photosync-gallery

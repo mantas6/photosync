@@ -1,7 +1,9 @@
 #!/bin/bash
 
-input="$HOME/Pictures/Gallery/Originals"
-output="$HOME/Pictures/Gallery/Site"
+set -eu
+
+input="$PHOTOSYNC_ORIGINALS"
+output="$PHOTOSYNC_SITE"
 mkdir -pv "$output"
 
 docker run -t \
@@ -20,4 +22,4 @@ docker run -t \
     --large-size 1512 \
     --embed-exif \
     --photo-download link \
-    --link-prefix 'http://l4:5555/static/'
+    --link-prefix 'http://l4:8080/'
