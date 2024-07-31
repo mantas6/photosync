@@ -21,7 +21,7 @@ if [ ! -f '.photosync' ]; then
     echo "No photosync $dev_name"
     cd
     udisksctl unmount -b "$dev_name"
-    return 0
+    exit 0
 fi
 
 photosync-notify "Processing drive $dev_name" &
