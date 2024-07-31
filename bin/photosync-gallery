@@ -2,6 +2,7 @@
 
 input="$HOME/Pictures/Gallery/Originals"
 output="$HOME/Pictures/Gallery/Site"
+mkdir -pv "$output"
 
 docker run -t \
     -v /etc/localtime:/etc/localtime \

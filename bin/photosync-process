@@ -4,6 +4,7 @@
 set -euo pipefail
 
 output_dir="$HOME/Pictures/Gallery/Originals"
+mkdir -pv "$output_dir"
 
 # Detected block device that is plugged in
 dev_name="$1"
