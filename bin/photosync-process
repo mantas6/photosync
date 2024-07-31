@@ -33,5 +33,6 @@ photosync-notify "Finished processing" &
 echo "Finish processing drive"
 
 cd
+sleep 5
 udisksctl unmount -b "$dev_name"
 
