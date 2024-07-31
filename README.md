@@ -6,12 +6,14 @@ Sync photos from a digital camera or other external devices to a local computer 
 
 Main processes:
 
-1. `photosync-watch` - the base process, watches for newly plugged in drives
-2. `photosync-process` - mounts and checks drives that are intended to be processed
-3. `photosync` - copies photos from one directory (ext. drive in this case) to a local folder
+1. `photosync-env` - sets up environment and launches all processes
+2. `photosync-watch` - the base process, watches for newly plugged in drives
+3. `photosync-process` - mounts and checks drives that are intended to be processed
+4. `photosync` - copies photos from one directory (ext. drive in this case) to a local folder
 
 Helpers:
 
+- `photosync-serve` - serves the gallery
 - `photosync-notify` - notifies about the process
 - `photosync-gallery` - generates a static gallery website
 
@@ -21,3 +23,7 @@ Helpers:
 - `exiftool` - retrieving photo creation date
 - `curl` - for notifications
 - `docker` - for static gallery generation
+
+## Gallery
+
+For static gallery generation library [thumbsup](https://thumbsup.github.io) is used.
