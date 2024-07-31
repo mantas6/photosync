@@ -6,5 +6,5 @@ export PHOTOSYNC_SITE="$HOME/Pictures/Gallery/Site"
 dir=$(dirname "$(realpath "$0")")
 export PATH="$dir:$PATH"
 
-photosync-serve
+photosync-serve &
 photosync-watch
