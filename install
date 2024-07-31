@@ -1,0 +1,10 @@
+#!/bin/sh
+
+svc_dir="$HOME/.config/systemd/user"
+svc_name='photosync.service'
+
+mkdir -p "$svc_dir"
+cp -iv "$svc_name" "$svc_dir"
+
+systemctl --user daemon-reload
+systemctl --user start "$svc_name"

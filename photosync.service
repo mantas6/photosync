@@ -1,0 +1,14 @@
+[Unit]
+Description=Photosync service
+After=network.target
+
+[Service]
+Environment="MY_VAR1=value1"
+Environment="MY_VAR2=value2"
+Environment="PATH=/home/mantas/Repos/photosync/bin/$PATH"
+ExecStart=/home/mantas/Repos/photosync/bin/photosync
+Restart=on-failure
+RestartSec=60s
+
+[Install]
+WantedBy=default.target
