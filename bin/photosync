@@ -1,47 +1,37 @@
 #!/bin/bash
 
-# Set shell strict mode
 set -euo pipefail
 
-output_dir="$1"
+# A photo in a external device
+source="$1"
 
-pathtoname() {
-    udevadm info -p /sys/"$1" | awk -v FS== '/DEVNAME/ {print $2}'
-}
+# Image library root path
+output_dir="$2"
 
-process-drive() {
-    # Detected block device that is plugged in
-    dev_name="$1"
 
-    # Mount the drive as read only
-    mount_point=$(udisksctl mount -b "$dev_name" -o 'ro' --no-user-interaction | grep "Mounted" | awk '{print $4}')
+echo "Processing $source"
 
-    cd "$mount_point"
+# Get all the meta data from the photo
+metadata=$(exiftool -DateTimeOriginal -d "%Y/%m/%d/%H/%M/%S" "$source")
 
-    # Check if marker file exist on the root of the drive
-    if [ ! -f '.photosync' ]; then
-        echo "Marked file not found on $dev_name"
-        cd
-        udisksctl unmount -b "$dev_name"
-        return 0
-    fi
+# TODO: add date time validation
+datetime=$(echo "$metadata" | grep 'Date/Time Original' | awk '{print $4}')
 
-    # List all jpg files in drive
-    find . -iname '*.jpg' -exec photosync-process {} "$output_dir" \;
+photo_path=$(echo "$datetime" | cut --delimiter "/" --fields 1,2,3)
 
-    echo "Finish processing drive"
+# Create a recursive path based on year, month and day
+mkdir -pv "$output_dir/$photo_path"
 
-    cd
-    udisksctl unmount -b "$dev_name"
-}
+extension=$(echo "${source##*.}" | tr '[:upper:]' '[:lower:]')
+output_basename=$(echo "$datetime" | sed 's/\///g')_$(cksum "$source" | cut -c 1-4)."$extension"
+output_filename="$output_dir/$photo_path/$output_basename"
 
-stdbuf -oL -- udevadm monitor --udev -s block | while read -r -- _ _ event devpath _; do
-    if [ "$event" = add ]; then
-        devname=$(pathtoname "$devpath")
-        echo "Detected $devname"
+if [ ! -f "$output_filename" ]; then
+    cp -nv "$source" "$output_filename"
+else
+    cmp "$source" "$output_filename" \
+        || echo "Files $source $output_filename mismatch" \
+        && exit 1
+fi
 
-        if lsblk -o PATH,TYPE | grep 'part' | grep -q "$devname "; then
-            process-drive "$devname"
-        fi
-    fi
-done
+
