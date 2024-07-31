@@ -1,0 +1,3 @@
+#!/bin/sh
+
+journalctl --user -u photosync.service -e --follow
