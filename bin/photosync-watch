@@ -3,6 +3,8 @@
 # Set shell strict mode
 set -euo pipefail
 
+echo 'Starting watcher'
+
 pathtoname() {
     udevadm info -p /sys/"$1" | awk -v FS== '/DEVNAME/ {print $2}'
 }
