@@ -3,6 +3,9 @@
 export PHOTOSYNC_ORIGINALS="$HOME/Pictures/Gallery/Originals"
 export PHOTOSYNC_SITE="$HOME/Pictures/Gallery/Site"
 
+mkdir -pv "$PHOTOSYNC_ORIGINALS"
+mkdir -pv "$PHOTOSYNC_SITE"
+
 dir=$(dirname "$(realpath "$0")")
 export PATH="$dir:$PATH"
 

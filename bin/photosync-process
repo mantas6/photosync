@@ -4,7 +4,6 @@
 set -euo pipefail
 
 output_dir="$PHOTOSYNC_ORIGINALS"
-mkdir -pv "$output_dir"
 
 # Detected block device that is plugged in
 dev_name="$1"

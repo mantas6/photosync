@@ -4,7 +4,6 @@ set -eu
 
 input="$PHOTOSYNC_ORIGINALS"
 output="$PHOTOSYNC_SITE"
-mkdir -pv "$output"
 
 docker run -t \
     -v /etc/localtime:/etc/localtime \
