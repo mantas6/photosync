@@ -26,6 +26,8 @@ extension=$(echo "${source##*.}" | tr '[:upper:]' '[:lower:]')
 output_basename=$(echo "$datetime" | sed 's/\///g')_$(cksum "$source" | cut -c 1-4)."$extension"
 output_filename="$output_dir/$photo_path/$output_basename"
 
+echo "$photo_path/$output_basename" >> "$output_dir/filelist"
+
 if [ ! -f "$output_filename" ]; then
     cp -nv "$source" "$output_filename"
 else
