@@ -30,13 +30,11 @@ if [ ! -f '.photosync' ]; then
     exit 0
 fi
 
-photosync-notify "Processing drive $dev_name" &
-
 # List all jpg files in drive
 find . -iname '*.jpg' -exec photosync {} "$output_dir" \;
 
 photosync-notify "Finished processing" &
-echo "Finish processing drive"
+echo "Finish processing"
 
 unmount
 
