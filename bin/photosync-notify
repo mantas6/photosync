@@ -2,6 +2,8 @@
 
 message="$1"
 
+echo "$message"
+
 [ -z "$PUSHOVER_API_TOKEN" ] && exit 0
 
 curl -s \

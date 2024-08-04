@@ -3,10 +3,10 @@
 # Set shell strict mode
 set -euo pipefail
 
-output_dir="$PHOTOSYNC_ORIGINALS"
-
 # Detected block device that is plugged in
 dev_name="$1"
+
+echo "Processing $dev_name"
 
 # Mount the drive as read only
 mount_point=$(udisksctl mount -b "$dev_name" -o 'ro' --no-user-interaction \
@@ -30,11 +30,24 @@ if [ ! -f '.photosync' ]; then
     exit 0
 fi
 
-# List all jpg files in drive
-find . -iname '*.jpg' -exec photosync {} "$output_dir" \;
+tag=$(< .photosync)
+[ -z "$tag" ] && echo 'Empty tag value' && exit 1
 
-photosync-notify "Finished processing" &
-echo "Finish processing"
+export PHOTOSYNC_CACHE_TAG="$tag"
+
+cache=$(photosync-cache | tr '\n' '|' | sed 's/|$//')
+start_count=$(photosync-cache | wc -l)
+
+# List all jpg files in drive
+target_files=$(find . -iname '*.jpg' | grep -Ev "$cache")
+
+echo "$target_files" | xargs -n 1 photosync
+
+end_count=$(photosync-cache | wc -l)
+processed_count=$((end_count - start_count))
+targeted_count=$(echo "$target_files" | wc -l)
+
+photosync-notify "Processed $processed_count/$targeted_count files" &
 
 unmount
 

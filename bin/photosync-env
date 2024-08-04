@@ -1,13 +1,21 @@
 #!/bin/bash
 
-dir=$(dirname "$(realpath "$0")")
+bin_dir=$(dirname "$(realpath "$0")")
+root_dir=$(dirname "$bin_dir")
 
+# Root
+export PHOTOSYNC_ROOT="$root_dir"
+export PHOTOSYNC_CACHE="$root_dir/cache"
+
+# Output
 export PHOTOSYNC_ORIGINALS="$HOME/Pictures/Gallery/Originals"
 export PHOTOSYNC_SITE="$HOME/Pictures/Gallery/Site"
-export PATH="$dir:$PATH"
+
+# Path
+export PATH="$bin_dir:$PATH"
 
 # shellcheck source=/dev/null
-[ -f "$dir/../local.env" ] && . "$dir/../local.env"
+[ -f "$root_dir/local.env" ] && . "$root_dir/local.env"
 
 mkdir -pv "$PHOTOSYNC_ORIGINALS"
 mkdir -pv "$PHOTOSYNC_SITE"
