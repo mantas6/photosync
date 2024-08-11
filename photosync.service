@@ -3,7 +3,7 @@ Description=Photosync service
 After=network.target
 
 [Service]
-ExecStart=/home/mantas/Repos/photosync/bin/photosync-env
+ExecStart=/home/mantas/Repos/photosync/bin/photosync-env photosync-watch
 Restart=on-failure
 RestartSec=60s
 

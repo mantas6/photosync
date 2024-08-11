@@ -1,32 +1,14 @@
 #!/bin/bash
 
-# Set shell strict mode
 set -euo pipefail
 
-# Detected block device that is plugged in
-dev_name="$1"
-
-echo "Processing $dev_name"
-
-# Mount the drive as read only
-mount_point=$(udisksctl mount -b "$dev_name" -o 'ro' --no-user-interaction \
-    | grep 'Mounted' \
-    | awk '{print $4}')
-
-unmount() {
-    echo 'Preparing to unmount the drive'
-    cd
-    sleep 5
-    udisksctl unmount -b "$dev_name"
-}
-
-trap unmount SIGINT
+mount_point="$1"
 
 cd "$mount_point"
 
 # Check if marker file exist on the root of the drive
 if [ ! -f '.photosync' ]; then
-    unmount
+    echo 'Not a photosync volume'
     exit 0
 fi
 

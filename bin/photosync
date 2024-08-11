@@ -1,8 +1,8 @@
-#!/bin/bash
+#!/bin/bash -x
 
 set -euo pipefail
 
-# A photo in a external device
+# A photo in an external device
 source="$1"
 
 echo "Processing $source"

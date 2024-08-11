@@ -21,4 +21,12 @@ mkdir -pv "$PHOTOSYNC_ORIGINALS"
 mkdir -pv "$PHOTOSYNC_SITE"
 
 photosync-serve &
-photosync-watch
+serve_pid="$!"
+
+cleanup() {
+    kill "$serve_pid"
+}
+
+trap cleanup EXIT
+
+"$@"
