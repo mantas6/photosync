@@ -17,7 +17,6 @@ docker run -t \
     --albums-from "Days/{YYYY}-{MM}-{DD}" \
     --sort-albums-direction desc \
     --sort-media-direction desc \
-    --concurrency 2 \
     --thumb-size 240 \
     --large-size 1512 \
     --embed-exif \

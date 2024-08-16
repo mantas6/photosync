@@ -23,14 +23,13 @@ start_count=$(photosync-cache | wc -l)
 # List all jpg files in drive
 target_files=$(find . -iname '*.jpg' | grep -Ev "$cache")
 
+set +e
 echo "$target_files" | xargs -n 1 photosync
+set -e
 
 end_count=$(photosync-cache | wc -l)
 processed_count=$((end_count - start_count))
 targeted_count=$(echo "$target_files" | wc -l)
+errors_count=$((targeted_count - processed_count))
 
-photosync-notify "Processed $processed_count/$targeted_count files" &
-
-unmount
-
-photosync-gallery
+photosync-notify "Processed: $processed_count Errors: $errors_count" &

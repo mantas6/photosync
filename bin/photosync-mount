@@ -15,12 +15,12 @@ mount_point=$(udisksctl mount -b "$dev_name" -o 'ro' --no-user-interaction \
 unmount() {
     echo 'Preparing to unmount the drive'
     cd
-    sleep 5
+    sleep 3
     udisksctl unmount -b "$dev_name"
 }
 
 trap unmount EXIT
 
 photosync-process "$mount_point"
-
 unmount
+photosync-gallery
