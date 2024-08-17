@@ -28,5 +28,5 @@ cancel() {
 trap cancel EXIT
 
 photosync-process "$mount_point"
-unmount &
+unmount
 photosync-gallery
