@@ -17,10 +17,16 @@ unmount() {
     cd
     sleep 5
     udisksctl unmount -b "$dev_name"
+    trap - EXIT
+}
+
+cancel() {
+    unmount
     exit 0
 }
 
-trap unmount EXIT
+trap cancel EXIT
 
 photosync-process "$mount_point"
+unmount &
 photosync-gallery

@@ -16,7 +16,7 @@ Main processes:
 
 1. `photosync-env` - sets up environment and launches all processes
 2. `photosync-watch` - the base process, watches for newly plugged in drives
-3. `photosync-mount` - mounts the drive
+3. `photosync-mount` - handles drive mounting and unmounting
 4. `photosync-process` - mounts and checks drives that are intended to be processed
 5. `photosync-cache` - caches file list
 6. `photosync` - copies photos from one directory (ext. drive in this case) to a local folder
