@@ -15,7 +15,7 @@ mount_point=$(udisksctl mount -b "$dev_name" -o 'ro' --no-user-interaction \
 unmount() {
     echo 'Preparing to unmount the drive'
     cd
-    sleep 3
+    sleep 1
     udisksctl unmount -b "$dev_name"
 }
 
