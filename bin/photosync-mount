@@ -1,6 +1,7 @@
 #!/bin/bash
 
 set -euo pipefail
+set -x
 
 # Detected block device that is plugged in
 dev_name="$1"
