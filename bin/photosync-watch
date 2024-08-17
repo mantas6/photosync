@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# Set shell strict mode
 set -euo pipefail
 
 echo 'Starting watcher'
