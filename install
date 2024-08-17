@@ -7,4 +7,4 @@ mkdir -p "$svc_dir"
 cp -iv "$svc_name" "$svc_dir"
 
 systemctl --user daemon-reload
-systemctl --user start "$svc_name"
+systemctl --user enable "$svc_name" --now
