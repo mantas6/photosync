@@ -28,9 +28,7 @@ if [ ! -f "$output_filename" ]; then
     echo "$photo_path/$output_basename" >> "$PHOTOSYNC_ORIGINALS/filelist"
     photosync-cache "$source"
 else
-    cmp "$source" "$output_filename" \
-        || echo "Files $source $output_filename mismatch" \
-        && exit 1
+    cmp "$source" "$output_filename" || exit 1
 
     photosync-cache "$source"
 fi
