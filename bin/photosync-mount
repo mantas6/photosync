@@ -22,5 +22,4 @@ unmount() {
 trap unmount EXIT
 
 photosync-process "$mount_point"
-unmount
 photosync-gallery
