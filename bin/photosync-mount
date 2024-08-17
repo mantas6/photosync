@@ -1,6 +1,5 @@
 #!/bin/bash
 
-set -x
 set -euo pipefail
 
 # Detected block device that is plugged in
@@ -18,11 +17,10 @@ unmount() {
     cd
     sleep 5
     udisksctl unmount -b "$dev_name"
+    exit 0
 }
 
 trap unmount EXIT
 
 photosync-process "$mount_point"
 photosync-gallery
-
-exit 0
