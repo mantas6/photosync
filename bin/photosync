@@ -19,7 +19,7 @@ photo_path=$(echo "$datetime" | cut --delimiter "/" --fields 1,2,3)
 mkdir -pv "$PHOTOSYNC_ORIGINALS/$photo_path"
 
 extension=$(echo "${source##*.}" | tr '[:upper:]' '[:lower:]')
-output_basename=$(echo "$datetime" | sed 's/\///g')_$(cksum "$source" | cut -c 1-4)."$extension"
+output_basename=$(echo "$datetime" | sed 's/\///g')_$(basename "$source" | cksum | cut -c 1-4)."$extension"
 output_filename="$PHOTOSYNC_ORIGINALS/$photo_path/$output_basename"
 
 if [ ! -f "$output_filename" ]; then
